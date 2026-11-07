@@ -10,37 +10,56 @@
 
 设计取向参考 Claude Code 的 auto memory：项目私有、自动加载、模型可维护、人类可读。
 
+> 分发方式：**通过 GitHub（Git）安装**，不发布 npm 包。仓库内的 `index.js` / `lib/` 是可直接运行的 ES 模块，无构建步骤。
+
 ## 安装
 
-需要 DSH 版本 `^0.2.1-rc.5`（`engines.dsh` 已在包内声明，不匹配的版本会被 DSH 拒绝激活）。
+需要 DSH 版本 `^0.2.1-rc.5`（包内已声明 `engines.dsh`，不匹配的 DSH 版本会拒绝激活该 bundle）。
 
-**方式一：npm 包（推荐）**
+**方式一：Git 安装（推荐）**
 
-在 DSH Web 的 Plugins 页面搜索/输入 `dsh-project-automemory` 安装，或使用 CLI：
+在 DSH Web 的 Plugins 页面选择从 Git 安装，输入仓库地址：
+
+```text
+https://github.com/ThereWasAYang/dsh-project-automemory.git
+```
+
+或使用 CLI：
 
 ```bash
-dsh plugin --profile <profile> add dsh-project-automemory
+dsh plugin --profile <profile> add https://github.com/ThereWasAYang/dsh-project-automemory.git
 ```
 
 也可以让 agent 调 `plugin_manager`：
 
 ```text
-install_bundle  target = dsh-project-automemory
-```
-
-**方式二：GitHub 源码**
-
-```text
 install_bundle  target = https://github.com/ThereWasAYang/dsh-project-automemory.git
 ```
 
-**方式三：本地目录（开发用）**
+固定到某个版本（推荐，避免跟随 main 漂移）：
+
+```text
+install_bundle  target = https://github.com/ThereWasAYang/dsh-project-automemory.git#v0.1.0
+```
+
+**方式二：本地目录（开发用）**
 
 ```text
 install_bundle  target = /path/to/dsh-project-automemory
 ```
 
 安装后对**新会话**立即生效；已存在的会话会在下一轮对话开始时加载记忆。
+
+### 更新
+
+DSH 目前只为 registry 包提供版本更新按钮，Git 安装需要"移除后重装"：
+
+```text
+remove_bundle   target = dsh-project-automemory
+install_bundle  target = https://github.com/ThereWasAYang/dsh-project-automemory.git
+```
+
+或重新执行一次 CLI 的 `dsh plugin ... add <git 地址>` 前先 `remove`。
 
 ## 记忆目录
 
@@ -112,16 +131,27 @@ $DSH_HOME/projects/<项目 slug>/memory/          # 默认 ~/.dsh/projects/...
 ```bash
 # 需要 Node.js 24+
 node --test                # 38 个单元测试
-npm pack --dry-run         # 检查发布产物文件列表
-npm pack                   # 生成 dsh-project-automemory-<version>.tgz
+npm pack --dry-run         # 可选：检查打包内容（本项目通过 Git 分发，不需要发布 npm）
 ```
 
-发布（维护者）：
+本地开发时用目录方式安装，改完代码后重新执行一次安装即可热更新：
+
+```text
+install_bundle  target = /path/to/dsh-project-automemory
+```
+
+## 发版（维护者）
+
+1. 更新 `package.json` 的 `version` 和 `CHANGELOG.md`；
+2. 提交并打标签推送：
 
 ```bash
-npm login                  # 首次发布需先注册/登录 npm 账号
-npm publish                # 包内已声明 publishConfig.access = public
+git add -A && git commit -m "release: v0.1.1"
+git tag v0.1.1
+git push origin main --tags
 ```
+
+3. 在 GitHub Releases 页面用该标签发布说明，用户即可按 `#v0.1.1` 固定安装。
 
 ## 限制
 

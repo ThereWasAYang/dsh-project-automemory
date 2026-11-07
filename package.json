@@ -1,7 +1,7 @@
 {
   "name": "dsh-project-automemory",
   "version": "0.1.0",
-  "description": "Per-project automatic memory for DeepSeek Harness: every project gets a private memory directory under the DSH home, loaded into each conversation and maintained through a memory tool.",
+  "description": "Per-project automatic memory for DeepSeek Harness (Git-distributed DSH bundle): private memory directories under the DSH home, auto-loaded every conversation, maintained through a memory tool.",
   "type": "module",
   "main": "./index.js",
   "exports": {
@@ -36,9 +36,6 @@
   ],
   "author": "ThereWasAYang",
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ThereWasAYang/dsh-project-automemory.git"
@@ -57,14 +54,23 @@
     "@deepseek-ai/schemastery": ">=3.18.5"
   },
   "peerDependenciesMeta": {
-    "@deepseek-ai/dsh-home-paths": { "optional": true },
-    "@deepseek-ai/dsh-llm": { "optional": true },
-    "@deepseek-ai/dsh-tools": { "optional": true },
-    "@deepseek-ai/schemastery": { "optional": true }
+    "@deepseek-ai/dsh-home-paths": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-llm": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-tools": {
+      "optional": true
+    },
+    "@deepseek-ai/schemastery": {
+      "optional": true
+    }
   },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
-  }
+  },
+  "private": true
 }

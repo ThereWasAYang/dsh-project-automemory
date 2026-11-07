@@ -6,37 +6,56 @@ Memory lives outside the project directory, so it is not shared across projects 
 
 The design follows Claude Code's auto-memory approach: project-private, automatically loaded, model-maintained, human-readable.
 
+> Distribution: **install from GitHub (Git)**; there is no npm package. `index.js` and `lib/` are directly runnable ES modules with no build step.
+
 ## Install
 
 Requires DSH `^0.2.1-rc.5` (`engines.dsh` is declared; incompatible DSH versions refuse to activate this bundle).
 
-**Option 1 — npm package (recommended)**
+**Option 1 — Git install (recommended)**
 
-Install from the DSH Web Plugins page by searching for `dsh-project-automemory`, or use the CLI:
+Install from the DSH Web Plugins page by choosing the Git install option and entering the repository URL:
+
+```text
+https://github.com/ThereWasAYang/dsh-project-automemory.git
+```
+
+Or use the CLI:
 
 ```bash
-dsh plugin --profile <profile> add dsh-project-automemory
+dsh plugin --profile <profile> add https://github.com/ThereWasAYang/dsh-project-automemory.git
 ```
 
 Or let an agent call `plugin_manager`:
 
 ```text
-install_bundle  target = dsh-project-automemory
-```
-
-**Option 2 — GitHub source**
-
-```text
 install_bundle  target = https://github.com/ThereWasAYang/dsh-project-automemory.git
 ```
 
-**Option 3 — local directory (development)**
+Pin a release tag (recommended, so the install does not follow `main`):
+
+```text
+install_bundle  target = https://github.com/ThereWasAYang/dsh-project-automemory.git#v0.1.0
+```
+
+**Option 2 — local directory (development)**
 
 ```text
 install_bundle  target = /path/to/dsh-project-automemory
 ```
 
 New conversations use it immediately; existing conversations load memory at their next turn start.
+
+### Update
+
+DSH only offers a version-update action for registry packages, so Git installs are updated by removing and reinstalling:
+
+```text
+remove_bundle   target = dsh-project-automemory
+install_bundle  target = https://github.com/ThereWasAYang/dsh-project-automemory.git
+```
+
+Or run the CLI `dsh plugin ... remove` followed by `add <git URL>` again.
 
 ## Memory directory
 
@@ -105,16 +124,27 @@ Move project-specific content out of `~/.dsh/AGENTS.md` into the matching projec
 ```bash
 # Node.js 24+
 node --test                # 38 unit tests
-npm pack --dry-run         # inspect the published file list
-npm pack                   # build dsh-project-automemory-<version>.tgz
+npm pack --dry-run         # optional: inspect packed contents (Git distribution, no npm release)
 ```
 
-Publishing (maintainers):
+For local development, install the directory instead of the git URL; reinstalling after a code change picks up the new files:
+
+```text
+install_bundle  target = /path/to/dsh-project-automemory
+```
+
+## Release (maintainers)
+
+1. Bump `version` in `package.json` and update `CHANGELOG.md`.
+2. Commit, tag, and push:
 
 ```bash
-npm login                  # register/log in to npm on first release
-npm publish                # publishConfig.access = public is already declared
+git add -A && git commit -m "release: v0.1.1"
+git tag v0.1.1
+git push origin main --tags
 ```
+
+3. Publish release notes on GitHub for that tag; users pin it with `#v0.1.1`.
 
 ## Limitations
 

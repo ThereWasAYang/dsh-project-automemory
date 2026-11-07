@@ -4,6 +4,8 @@
 
 First public release.
 
+Distributed through GitHub: install with `install_bundle target = https://github.com/ThereWasAYang/dsh-project-automemory.git` (optionally pinned with `#v0.1.0`). No npm package is published.
+
 - Per-project private memory directories under `$DSH_HOME/projects/<project-slug>/memory/`,
   created automatically for every project a conversation runs in.
 - Automatic loading at the first step of every turn: top-level `*.md` files
