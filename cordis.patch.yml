@@ -1,0 +1,16 @@
+# Profile bundle layer for dsh-project-automemory.
+#
+# Inserts one Host row: the plugin gives every project a private memory
+# directory under $DSH_HOME/projects/<project-slug>/memory, loads it into each
+# conversation of that project, and registers the `memory` tool that maintains
+# it. All fields below are the plugin's documented defaults; override the row by
+# id in the profile's cordis.patch.yml instead of editing this file.
+- insert:
+    - id: project-memory
+      name: 'dsh-project-automemory'
+      config:
+        maxBytes: 16384
+        maxSourceBytes: 262144
+        projectRootMarkers:
+          - .git
+        indexFile: MEMORY.md

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Project Memory",
+    "description": "Gives each project a private memory directory under the DSH home, loads it into every conversation of that project, and adds a memory tool to maintain it."
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "name": "dsh-project-automemory",
+  "version": "0.1.0",
+  "description": "Per-project automatic memory for DeepSeek Harness: every project gets a private memory directory under the DSH home, loaded into each conversation and maintained through a memory tool.",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "lib/*.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "README.en.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "icon": "./icon.svg",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "project-memory",
+    "agent-memory",
+    "auto-memory",
+    "ai-agents",
+    "local-first",
+    "memory"
+  ],
+  "author": "ThereWasAYang",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThereWasAYang/dsh-project-automemory.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ThereWasAYang/dsh-project-automemory/issues"
+  },
+  "homepage": "https://github.com/ThereWasAYang/dsh-project-automemory#readme",
+  "engines": {
+    "dsh": "^0.2.1-rc.5"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-home-paths": ">=0.2.1-rc.5",
+    "@deepseek-ai/dsh-llm": ">=0.2.1-rc.5",
+    "@deepseek-ai/dsh-tools": ">=0.2.1-rc.5",
+    "@deepseek-ai/schemastery": ">=3.18.5"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-home-paths": { "optional": true },
+    "@deepseek-ai/dsh-llm": { "optional": true },
+    "@deepseek-ai/dsh-tools": { "optional": true },
+    "@deepseek-ai/schemastery": { "optional": true }
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

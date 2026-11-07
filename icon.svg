@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Project memory">
+  <rect x="6" y="10" width="52" height="44" rx="9" fill="#1f6fbf"/>
+  <path d="M17 10h9v26l-4.5-3.5L17 36z" fill="#ffffff" opacity="0.92"/>
+  <g stroke="#dcecff" stroke-width="2.6" stroke-linecap="round" opacity="0.95">
+    <line x1="32" y1="22" x2="49" y2="22"/>
+    <line x1="32" y1="30" x2="49" y2="30"/>
+    <line x1="32" y1="38" x2="44" y2="38"/>
+  </g>
+  <circle cx="13" cy="47" r="2.4" fill="#7fd4a8"/>
+</svg>
